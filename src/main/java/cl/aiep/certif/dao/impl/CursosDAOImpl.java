@@ -107,6 +107,7 @@ public class CursosDAOImpl implements ICursosDAO{
 	public boolean tieneCupos(Integer id) {
 		Curso cur= repoCurso.getById(id);
 		long cantidad= estRepo.countByCurso(cur);
+		System.out.println(cantidad);
 		
 	return cantidad<=cur.getCupos()?true:false;
 	}
