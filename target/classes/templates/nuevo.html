@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--  main-fragment (title, otherStaticResources, header, nav, mainContent, footer)  -->
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layouts/main-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #home-static-resources},
+                                                ~{:: #home-header},
+                                                ~{:: #home-nav},
+                                                ~{:: #home-main-content},  
+                                                ~{:: #home-footer}
+                                               )}">
+
+<head>
+	<title>Cursos</title>
+	<th:block id="home-static-resources">
+		<script type="text/javascript" src="../static/home.js" th:src="@{/home.js}"></script>
+		<link rel="stylesheet" type="text/css" href="../static/home.css" th:href="@{/home.css}" />
+	</th:block>
+</head>
+
+<body>
+	<div id="home-nav" th:replace="~{/fragments/app-fragments :: nav-default}">
+		Home Nav
+	</div>
+	<div id="home-header">
+
+	</div>
+	<div id="home-main-content">
+
+		<div id="title" >
+			<h3>Registrate</h3>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<form action="#" th:action="@{/guardar}" th:object="${estudiante}" method="post">
+					<fieldset>
+						<legend>Informacion de la Cuenta</legend>
+
+						<div class="row">
+							<div class="col-5">
+								<div class="form-group">
+									<label for="userName">RUT *</label>
+									<input id="userName" name="username" th:field="*{rut}" type="text"
+										class="form-control required">
+								</div>
+								<div class="form-group">
+									<label for="password">Password *</label>
+									<input id="password" name="password" th:field="*{password}" type="password"
+										class="form-control required">
+								</div>
+								<div class="form-group">
+									<label for="nombre">Nombre *</label>
+									<input id="nombre" name="nombre" th:field="*{nombre}" type="text"
+										class="form-control required">
+								</div>
+								<div class="form-group">
+									<label for="cel">Telefono *</label>
+									<input id="cel" name="cel" th:field="*{telefono}" type="text"
+										class="form-control required">
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label for="Direccion">Direccion *</label>
+									<input id="Direccion" name="Direccion" th:field="*{direccion}" type="text"
+										class="form-control required">
+								</div>
+								<div class="form-group">
+									<label for="Email">Email *</label>
+									<input id="Email" name="Email" th:field="*{email}" type="email"
+										class="form-control required">
+								</div>
+								<div class="form-group">
+									<label for="Region">Region *</label>
+								</div>
+								<div class="form-group">
+									<select class="form-select" id="Region" name="Region" th:field="*{idRegion}">
+										<option th:each="i : ${regiones}" th:value="${i.id}" th:text="${i.detalle}">
+										</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="edad">Edad *</label>
+									<input id="edad" name="edad" th:field="*{edad}" type="number"
+										class="form-control required">
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<button class="btn btn-info mt-3" type="submit">Registrar</button>
+				</form>
+				<span style="color:red" th:text="${mensaje}"></span>
+			</div>
+		</div>
+	</div>
+	<div id="home-footer" th:replace="~{/fragments/app-fragments :: copyright}">
+		Footer
+	</div>
+</body>
+
+</html>

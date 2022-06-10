@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--  main-fragment (title, otherStaticResources, header, nav, mainContent, footer)  -->
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layouts/main-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #home-static-resources},
+                                                ~{:: #home-header},
+                                                ~{:: #home-nav},
+                                                ~{:: #home-main-content},  
+                                                ~{:: #home-footer}
+                                               )}">
+
+<head>
+	<title>Cursos</title>
+	<th:block id="home-static-resources">
+		<script type="text/javascript" src="../static/home.js" th:src="@{/home.js}"></script>
+		<link rel="stylesheet" type="text/css" href="../static/home.css" th:href="@{/home.css}" />
+	</th:block>
+</head>
+
+<body>
+	<div id="home-nav" th:replace="~{/fragments/app-fragments :: nav-default}">
+		Home Nav
+	</div>
+	<div id="home-header">
+
+	</div>
+	<div id="home-main-content">
+		<h2>Bienvenido Administrador</h2>
+
+		<div class="row">
+			<table id="allEstud" class="table table-striped">
+				<thead>
+					<tr>
+						<th width="20%">Nombre</th>
+						<th>Fecha Inicio</th>
+						<th>Fecha Termino</th>
+						<th>Descripcion</th>
+						<th>Accion</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="result" data-th-each="cur : ${cursos}">
+						<td>[[${cur.nombre}]]</td>
+						<td>[[${cur.fecinicio}]]</td>
+						<td>[[${cur.fectermino}]]</td>
+						<td>[[${cur.descripcion}]]</td>
+
+						<td><a th:href="@{/obtiene/{id}(id=${cur.id})}">Ver </a>
+							<a th:href="@{/dashboard/admin/editarCurso/{id}(id=${cur.id})}"> Editar</a>
+						</td>
+						<td><a th:href="@{/dashboard/admin/eliminarCurso/{id}(id=${cur.id})}"> Eliminar</a>
+							<a th:href="@{/dashboard/admin/agregarContenido/{id}(id=${cur.id})}"> Agregar Contenido</a>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<a class="btn btn-info" th:href="@{/dashboard/admin/crearCurso/}">Crear Cruso</a>
+	</div>
+	<div id="home-footer" th:replace="~{/fragments/app-fragments :: copyright}">
+		Footer
+	</div>
+</body>
+
+</html>
