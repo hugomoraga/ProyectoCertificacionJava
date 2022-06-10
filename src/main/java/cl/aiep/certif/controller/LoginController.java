@@ -75,12 +75,6 @@ public class LoginController {
 
 	}
 
-	@GetMapping("/panelusuario")
-	@PreAuthorize("isAuthenticated()")
-	public String homeCursos() {
-
-		return "indexLibre";
-	}
 
 	@GetMapping("/")
 	public String indexCursos(final Model model) {
@@ -141,11 +135,12 @@ public class LoginController {
 	}
 	
 	@GetMapping("/dashboard/estudiante")
+	@PreAuthorize("isAuthenticated()")
 	public String panelUsuario(final Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) auth.getPrincipal();
+		Object user =  auth.getPrincipal();
 		CursoDTO curso = serviceEst.obtenerCurso(auth.getName());
-		EstudianteDTO estudiante = serviceEst.obtenerEstudiante(user.getUsername());
+		EstudianteDTO estudiante = serviceEst.obtenerEstudiante(((User) user).getUsername());
 		model.addAttribute("estudiante", estudiante);
 		model.addAttribute("curso", curso );
 		
