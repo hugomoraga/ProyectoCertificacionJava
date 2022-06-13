@@ -119,6 +119,8 @@ public class CursosController {
 	public String agregaCurso(@PathVariable Integer id, final Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (service.obtieneCupos(id)) {
+			boolean cupos = service.obtieneCupos(id);
+			System.out.println("tines curpos " + cupos );
 			if (serviceEst.asignarCurso(auth.getName(), id)) {
 				model.addAttribute("mensaje", "curso asignado");
 				model.addAttribute("curso", service.obtenerCurso(id));

@@ -7,12 +7,19 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import cl.aiep.certif.controller.service.CursoService;
+import cl.aiep.certif.controller.service.EstudianteService;
 
 
 
 
 public class CursoDTO implements Serializable {
+	
+
+@Autowired
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
@@ -31,7 +38,14 @@ public class CursoDTO implements Serializable {
 	@NotEmpty(message = "Descripcion no debe ser vacio")
 	private String descripcion;
 	
+	private Integer inscripcion;
 	
+	public Integer getInscripcion() {
+		return inscripcion;
+	}
+	public void setInscripcion(Integer inscripcion) {
+		this.inscripcion = inscripcion;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -100,6 +114,20 @@ public class CursoDTO implements Serializable {
 		this.descripcion = descripcion;
 	}
 	
+	public CursoDTO(Integer id, String nombre, String imagen, Date fecinicio, Date fectermino, Integer cupos,
+			String descripcion, Integer inscripcion) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.imagen = imagen;
+		this.fecinicio = fecinicio;
+		this.fectermino = fectermino;
+		this.cupos = cupos;
+		this.descripcion = descripcion;
+		this.inscripcion = inscripcion;
+	}
+	
+
 	
 
 	

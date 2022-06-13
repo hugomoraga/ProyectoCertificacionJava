@@ -80,7 +80,17 @@ public class LoginController {
 	public String indexCursos(final Model model) {
 		List cursos = serviceCurso.obtenerCursos();
 		cursos.remove(0);
+		CursoDTO curso = serviceCurso.obtenerCurso(1);
+		boolean tienecupos = serviceCurso.obtieneCupos(curso.getId());
+		Integer numeroCupos = serviceCurso.getNumeroInscritos(curso.getId());
+		System.out.println(curso.getNombre());
+
+		System.out.println(tienecupos);
+		System.out.println(numeroCupos);
+
+		
 		model.addAttribute("cursos", cursos);
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("mensaje");
 		if (auth.getPrincipal().equals("anonymousUser")) {

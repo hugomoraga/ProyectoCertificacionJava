@@ -1,9 +1,12 @@
+
+
 package cl.aiep.certif.dao;
 
 import java.util.List;
 
 import cl.aiep.certif.dao.dto.ContenidoDTO;
 import cl.aiep.certif.dao.dto.CursoDTO;
+import cl.aiep.certif.dao.dto.EstudianteDTO;
 
 public interface ICursosDAO {
 	
@@ -17,6 +20,7 @@ public interface ICursosDAO {
 	public boolean actualizarContenido(ContenidoDTO contenido);
 	public boolean eliminarContenido(Integer id);
 	public List<ContenidoDTO> obtieneContenidos(Integer id);
+	public Integer getNumeroInscritos(Integer id);
 	
 
 }

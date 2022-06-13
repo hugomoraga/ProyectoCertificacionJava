@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import cl.aiep.certif.controller.service.CursoService;
 import cl.aiep.certif.dao.ICursosDAO;
 import cl.aiep.certif.dao.dto.ContenidoDTO;
 import cl.aiep.certif.dao.dto.CursoDTO;
+import cl.aiep.certif.dao.dto.EstudianteDTO;
 import cl.aiep.certif.dao.entity.Contenido;
 import cl.aiep.certif.dao.entity.Curso;
 import cl.aiep.certif.dao.entity.Estudiante;
@@ -33,15 +35,20 @@ public class CursosDAOImpl implements ICursosDAO{
 	@Autowired
 	EstudianteRepository estRepo;
 	
-	
+	@Autowired
+	CursoService cursoService;
+
 	@Override 
 	public List<CursoDTO> obtenerCursos() {
 		List<CursoDTO> retorno= new ArrayList<CursoDTO>();
 		for(Curso curso:repoCurso.findAll())
 			retorno.add(new CursoDTO(curso.getId(), curso.getNombre(),
 					curso.getImagen(), curso.getFecinicio(),
-					curso.getFectermino(), curso.getCupos(), curso.getDescripcion() ));
-		
+					curso.getFectermino(), curso.getCupos(), curso.getDescripcion() )
+					);
+		for( int i = 0; i<retorno.size(); i++) {
+			retorno.get(i).setInscripcion(cursoService.getNumeroInscritos(retorno.get(i).getId()));
+		}
 		
 		return retorno;
 	}
@@ -106,10 +113,14 @@ public class CursosDAOImpl implements ICursosDAO{
 	@Override
 	public boolean tieneCupos(Integer id) {
 		Curso cur= repoCurso.getById(id);
-		long cantidad= estRepo.countByCurso(cur);
-		System.out.println(cantidad);
+		Integer inscritos= (int) estRepo.countByCurso(cur);
+		System.out.println(" impl inscrittos " + inscritos);
+		Integer cupos = cur.getCupos();
+		if (cupos>inscritos) {
+			return true;
+		} else
+			return false;
 		
-	return cantidad<=cur.getCupos()?true:false;
 	}
 
 	@Override
@@ -157,6 +168,18 @@ public class CursosDAOImpl implements ICursosDAO{
 		
 		return retorno;
 	}
+
+	@Override
+	public Integer getNumeroInscritos(Integer id) {
+		Curso curso= repoCurso.getById(id);
+		
+		long cantidad= estRepo.countByCurso(curso);
+		System.out.println(cantidad);
+		return (int) cantidad;
+		
+	}
+
+
 	
 	
 

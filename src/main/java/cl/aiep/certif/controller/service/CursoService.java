@@ -57,5 +57,9 @@ public class CursoService {
 		return dao.tieneCupos(id);
 		
 	}
+	
+	public Integer getNumeroInscritos(Integer id) {
+		return dao.getNumeroInscritos(id);
+	}
 
 }

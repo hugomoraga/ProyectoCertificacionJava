@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: cl.aiep.certif.ProyectoCertificacionApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.066 s - in cl.aiep.certif.ProyectoCertificacionApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.889 s - in cl.aiep.certif.ProyectoCertificacionApplicationTests
