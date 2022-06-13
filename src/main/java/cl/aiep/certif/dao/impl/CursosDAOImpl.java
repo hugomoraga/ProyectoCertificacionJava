@@ -114,7 +114,6 @@ public class CursosDAOImpl implements ICursosDAO{
 	public boolean tieneCupos(Integer id) {
 		Curso cur= repoCurso.getById(id);
 		Integer inscritos= (int) estRepo.countByCurso(cur);
-		System.out.println(" impl inscrittos " + inscritos);
 		Integer cupos = cur.getCupos();
 		if (cupos>inscritos) {
 			return true;

@@ -70,7 +70,6 @@ public class LoginController {
 			return "nuevo";
 
 		}
-
 		return "redirect:/dashboard/estudiante";
 
 	}
@@ -80,25 +79,14 @@ public class LoginController {
 	public String indexCursos(final Model model) {
 		List cursos = serviceCurso.obtenerCursos();
 		cursos.remove(0);
-		CursoDTO curso = serviceCurso.obtenerCurso(1);
-		boolean tienecupos = serviceCurso.obtieneCupos(curso.getId());
-		Integer numeroCupos = serviceCurso.getNumeroInscritos(curso.getId());
-		System.out.println(curso.getNombre());
-
-		System.out.println(tienecupos);
-		System.out.println(numeroCupos);
-
-		
 		model.addAttribute("cursos", cursos);
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("mensaje");
 		if (auth.getPrincipal().equals("anonymousUser")) {
 			EstudianteDTO estudianteNull = new EstudianteDTO();
-			model.addAttribute("estudiante", estudianteNull);
-			
-			return "home";
-			
+			model.addAttribute("estudiante", estudianteNull);	
+			return "home";		
 		}
 		
 	
@@ -126,23 +114,6 @@ public class LoginController {
 		return "dashboardAdmin";
 	}
 
-	@GetMapping("{tab}")
-	public String tab(@PathVariable String tab, final Model model) {
-		String retorno = "empty";
-		if (tab.equals("tab1")) {
-			model.addAttribute("estudiantes", serviceEst.obtenerEstudiantes());
-			retorno = "_" + tab;
-		} else if (tab.equals("tab2")) {
-			model.addAttribute("cursos", serviceCurso.obtenerCursos());
-			retorno = "_" + tab;
-		} else if (tab.equals("tab3")) {
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			model.addAttribute("curso", serviceEst.obtenerCurso(auth.getName()));
-			retorno = "_" + tab;
-		}
-
-		return retorno;
-	}
 	
 	@GetMapping("/dashboard/estudiante")
 	@PreAuthorize("isAuthenticated()")

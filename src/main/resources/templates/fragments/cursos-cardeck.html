@@ -1,12 +1,10 @@
 <div th:fragment="cursos-cardeck">
 
 
-
-
-	<div class="container-fluid">
+<div class="container-fluid">
 		<div class="card-content" style="display: none" th:if="${cursos} != null">
 
-			<div class="p-2" data-th-each="cur : ${cursos}">
+			<div class="" data-th-each="cur : ${cursos}">
 				<div class="card-curso card">
 					<img th:src="${cur.imagen}" alt="Curso" style="width:100%; height:200px; object-fit:cover;">
 					<div class="p-2" style="min-height: 130px;">
